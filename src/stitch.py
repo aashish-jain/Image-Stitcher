@@ -34,15 +34,19 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Please enter the directory. Correct format --> python stitch.py ../data/")
         sys.exit(0)
-    directory = sys.argv[1]
-    print(directory)
-    images = read_images(directory)
+    path = sys.argv[1]
+    if not path.endswith('/'):
+        path += "/"
+
+    print(path)
+    images = read_images(path)
     images = sort_images(images)
 
+    stitched = None
     if len(images) == 2:
         stitched = stitch_two_images(images[0], images[1])
-        stitched.show()
     elif len(images) == 3:
         stitched = stitch_two_images(images[0], images[1])
         stitched = stitch_two_images(stitched, images[2])
-        stitched.show()
+
+    cv2.imwrite(path + "panorama.jpg", stitched.img)
