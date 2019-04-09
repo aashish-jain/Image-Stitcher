@@ -90,16 +90,19 @@ def read_images(directory):
 
     images = []
     for file_name in glob(directory + "*"):
+        if "panorama" in file_name:
+            continue
         read_image = cv2.imread(file_name)
         present_flag = False
         for img in images:
             # Duplicate filter
-            if (read_image == img).all():
+            if read_image.shape == img.shape and (read_image == img).all():
                 present_flag = True
                 break
         if not present_flag:
             print("Reading %s" % file_name)
             images.append(read_image)
+    
     images = [Image(image) for image in images]
     return images
 

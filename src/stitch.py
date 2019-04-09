@@ -40,8 +40,11 @@ if __name__ == "__main__":
 
     print(path)
     images = read_images(path)
+
+    print("Finding order")
     images = sort_images(images)
 
+    print("Stitching...")
     stitched = None
     if len(images) == 2:
         stitched = stitch_two_images(images[0], images[1])
@@ -49,4 +52,5 @@ if __name__ == "__main__":
         stitched = stitch_two_images(images[0], images[1])
         stitched = stitch_two_images(stitched, images[2])
 
+    print("Dumping the stitched image")
     cv2.imwrite(path + "panorama.jpg", stitched.img)
