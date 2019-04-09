@@ -89,7 +89,7 @@ def read_images(directory):
     """
 
     images = []
-    for file_name in glob(directory + "*"):
+    for file_name in glob(directory + "*.jpg"):
         if "panorama" in file_name:
             continue
         read_image = cv2.imread(file_name)
